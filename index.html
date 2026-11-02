@@ -63,7 +63,7 @@ button.primary{background:var(--accent);color:#1d1711;border-color:var(--accent)
 </style>
 
 <canvas id="c" aria-label="3D зала Man of God"></canvas>
-<div class="hud" id="tag"><b>MAN OF GOD</b> · залата · версия 0.7.2 · Quest</div>
+<div class="hud" id="tag"><b>MAN OF GOD</b> · залата · версия 0.7.3 · Quest</div>
 <div class="hud" id="cross" hidden></div>
 <div class="hud" id="hint" hidden></div>
 <div class="hud" id="toast" hidden></div>
@@ -1635,7 +1635,7 @@ function loop(){
   if (jf || js){ if (!modalOpen){ const sp = (jrun ? (zone === 'world' ? 12 : 7) : 3.4) * dt; const fw = new THREE.Vector3(); camera.getWorldDirection(fw); fw.y = 0; fw.normalize(); const rt = new THREE.Vector3(-fw.z, 0, fw.x); move((fw.x*jf + rt.x*js)*sp, (fw.z*jf + rt.z*js)*sp); } }
   else if ((f || s) && !modalOpen){ const sp = (keys.ShiftLeft || keys.ShiftRight ? (zone === 'world' ? 16 : 9) : 3.4) * dt; const fw = new THREE.Vector3(); camera.getWorldDirection(fw); fw.y = 0; fw.normalize(); const rt = new THREE.Vector3(-fw.z, 0, fw.x); move((fw.x*f + rt.x*s)*sp, (fw.z*f + rt.z*s)*sp); }
   if (xr){ const sess = renderer.xr.getSession(); for (const src of sess.inputSources){ const gp = src.gamepad; if (!gp || gp.axes.length < 4) continue; const ax = gp.axes[2], ay = gp.axes[3];
-    if (src.handedness === 'left' && (Math.abs(ax) > 0.15 || Math.abs(ay) > 0.15)){ const fw = new THREE.Vector3(); renderer.xr.getCamera(camera).getWorldDirection(fw); fw.y = 0; fw.normalize(); const rt = new THREE.Vector3(-fw.z,0,fw.x); const sp = 2.6*dt; move((fw.x*-ay + rt.x*ax)*sp, (fw.z*-ay + rt.z*ax)*sp); }
+    if (src.handedness === 'left' && (Math.abs(ax) > 0.15 || Math.abs(ay) > 0.15)){ const fw = new THREE.Vector3(); renderer.xr.getCamera(camera).getWorldDirection(fw); fw.y = 0; fw.normalize(); const rt = new THREE.Vector3(-fw.z,0,fw.x); const fast = sess.inputSources && [...sess.inputSources].some(q => q.gamepad && ((q.gamepad.buttons[1] && q.gamepad.buttons[1].pressed) || (q.gamepad.buttons[3] && q.gamepad.buttons[3].pressed))); const sp = (fast ? (zone === 'world' ? 14 : 8) : 2.6)*dt; move((fw.x*-ay + rt.x*ax)*sp, (fw.z*-ay + rt.z*ax)*sp); }
     if (src.handedness === 'right' && Math.abs(ax) > 0.12){ const k = (Math.abs(ax) - 0.12)/0.88; rig.rotation.y -= Math.sign(ax)*k*k*2.0*dt; } } }
   for (const a of anims) a(tm, dt);
   animatePages(tm); worldTick();
